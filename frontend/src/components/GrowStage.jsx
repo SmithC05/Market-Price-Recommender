@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CloudRain, AlertTriangle, CheckCircle, Wind, Thermometer } from 'lucide-react';
+import { API_BASE } from '../config';
 
 const GrowStage = ({ mandi, crop }) => {
     const [data, setData] = useState(null);
@@ -10,7 +11,7 @@ const GrowStage = ({ mandi, crop }) => {
         const fetchGrow = async () => {
             setLoading(true);
             try {
-                const res = await axios.get(`http://localhost:8000/api/v1/grow?mandi=${mandi}&crop=${crop}`);
+                const res = await axios.get(`${API_BASE}/grow?mandi=${mandi}&crop=${crop}`);
                 setData(res.data);
             } catch (e) {
                 console.error(e);

@@ -6,6 +6,7 @@ import MainLayout from './components/layout/MainLayout';
 import PlanStage from './components/PlanStage';
 import GrowStage from './components/GrowStage';
 import SellStage from './components/SellStage';
+import { API_BASE } from './config';
 
 // --- Global Config Bar Component (Lives inside pages or layout) ---
 function ConfigBar({ mandi, setMandi, crop, setCrop }) {
@@ -17,7 +18,7 @@ function ConfigBar({ mandi, setMandi, crop, setCrop }) {
   useEffect(() => {
     const fetchCrops = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/api/v1/crops/recommended?mandi=${mandi}`);
+        const res = await axios.get(`${API_BASE}/crops/recommended?mandi=${mandi}`);
         setRecommendedCrops(res.data);
       } catch (e) {
         console.error(e);
@@ -32,7 +33,7 @@ function ConfigBar({ mandi, setMandi, crop, setCrop }) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
         try {
-          const res = await axios.get(`http://localhost:8000/api/v1/mandis/nearby?lat=${latitude}&lon=${longitude}`);
+          const res = await axios.get(`${API_BASE}/mandis/nearby?lat=${latitude}&lon=${longitude}`);
           setNearbyMandis(res.data);
         } catch (e) {
           console.error(e);
@@ -51,7 +52,7 @@ function ConfigBar({ mandi, setMandi, crop, setCrop }) {
     navigator.geolocation.getCurrentPosition(async (position) => {
       try {
         const { latitude, longitude } = position.coords;
-        const res = await axios.get(`http://localhost:8000/api/v1/mandis/nearby?lat=${latitude}&lon=${longitude}`);
+        const res = await axios.get(`${API_BASE}/mandis/nearby?lat=${latitude}&lon=${longitude}`);
         if (res.data && res.data.length > 0) {
           const nearest = res.data[0];
           setMandi(nearest.name);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { TrendingUp, TrendingDown, Minus, ArrowRight } from 'lucide-react';
+import { API_BASE } from '../config';
 
 const PlanStage = ({ mandi }) => {
     const [data, setData] = useState(null);
@@ -10,7 +11,7 @@ const PlanStage = ({ mandi }) => {
         const fetchPlan = async () => {
             setLoading(true);
             try {
-                const res = await axios.get(`http://localhost:8000/api/v1/plan?mandi=${mandi}`);
+                const res = await axios.get(`${API_BASE}/plan?mandi=${mandi}`);
                 setData(res.data.recommendations);
             } catch (e) {
                 console.error(e);
